@@ -1,32 +1,25 @@
-#include<vector>
-#include<iostream>
-unsigned long long n;
-void a(){
-	std::cout<<"Please enter the Atomic Number: ",std::cin>>n;
-	if(n==1){
-		std::cout<<"1: 1\n\n";
-		return;
-	}
-	std::vector<unsigned long long>e;
-	for(unsigned long long i=0;n;i++){
-		e.push_back(0);
-		for(unsigned long long j=i/2+i%2,k=(unsigned long long)(i/2)*4+2;j<=i&&n;j++,k-=4)
-			if(n>k)
-				e[j]+=k,n-=k;
-			else
-				e[j]+=n,n=0;
-	}
-	for(unsigned long long i=0;i<e.size()&&e[i];i++){
-		std::cout<<i+1<<": "<<e[i];
-		if(e[i]==(i+1)*(i+1)*2)
-			std::cout<<" FULL";
-		std::cout<<'\n';
-	}
-	std::cout<<'\n';
-	return;
-}
+#include<cstdio>
+#include<deque>
 int main(){
-	while(1)
-		a();
+	size_t atomicNumber;//Initialize the atomic number
+	while(1){
+		printf("Please enter the atomic number: "),scanf("%zu",&atomicNumber);//Prompt for the atomic number innput
+		std::deque<unsigned long long>electron;//Initialize electrons
+		for(unsigned long long i=0;atomicNumber;i++){//Place the electrons until none is left
+			electron.push_back(0);//Push an empty layer to the rest of the electron's layers
+			for(unsigned long long j=i/2+i%2,k=(unsigned long long)(i/2)*4+2;j<=i&&atomicNumber;j++,k-=4)//Place the electrons
+				if(atomicNumber>k)
+					electron[j]+=k,atomicNumber-=k;
+				else
+					electron[j]+=atomicNumber,atomicNumber=0;
+		}
+		for(size_t i=0;i<electron.size()&&electron[i];i++){//Output the layers
+			printf("%zu: %u",i+1,electron[i]);//Output the current layer
+			if(electron[i]==(i+1)*(i+1)*2)//Show if the current layer is full
+				printf(" FULL");
+			printf("\n");
+		}
+		printf("\n");
+	}
 	return 0;
 }
